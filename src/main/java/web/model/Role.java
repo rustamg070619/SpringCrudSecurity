@@ -4,14 +4,14 @@ package web.model;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "t_role")
 public class Role implements GrantedAuthority {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
+    private String role;
     @Transient
     @ManyToOne
     private User user;
@@ -22,9 +22,9 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public Role(Long id, String name) {
+    public Role(Long id, String role) {
         this.id = id;
-        this.name = name;
+        this.role = role;
     }
 
     public Long getId() {
@@ -35,12 +35,12 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRole() {
+        return role;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRole(String name) {
+        this.role = name;
     }
 
     public User getUser() {
@@ -53,15 +53,12 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return getName();
+        return getRole();
     }
 
     @Override
     public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", users=" + user +
-                '}';
+        return role;
+
     }
 }
