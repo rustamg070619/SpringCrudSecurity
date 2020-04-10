@@ -18,10 +18,21 @@ public class User implements UserDetails {
     private String login;
     @Column(name = "password")
     private String password;
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private Set<Role> roles;
 
     public User() {
+    }
+
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
+
+    public User(String login, String password, Set<Role> roles) {
+        this.login = login;
+        this.password = password;
+        this.roles = roles;
     }
 
     public Long getId() {

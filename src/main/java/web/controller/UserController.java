@@ -2,15 +2,16 @@ package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import web.model.Role;
 import web.model.User;
 import web.service.UserService;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UserController {
@@ -54,9 +55,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/admin/add", method = RequestMethod.POST)
-    public ModelAndView addUser(@ModelAttribute("user") User user) {
+    public ModelAndView addUser(@ModelAttribute("user") User user, @RequestParam("Role") String role) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin");
+        Set<Role> roles = new HashSet<>();
+        roles.add(new Role(role));
+        user.setRoles(roles);
         userService.add(user);
         return modelAndView;
     }
@@ -80,9 +84,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/admin/edit", method = RequestMethod.POST)
-    public ModelAndView editUser(@ModelAttribute("user") User user) {
+    public ModelAndView editUser(@ModelAttribute("user") User user, @RequestParam("Role") String role) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin");
+        Set<Role> roles = new HashSet<>();
+        roles.add(new Role(role));
+        user.setRoles(roles);
         userService.edit(user);
         return modelAndView;
     }

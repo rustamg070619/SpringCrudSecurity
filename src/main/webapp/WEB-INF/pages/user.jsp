@@ -15,7 +15,7 @@
 
 <h1> Password is ${user.password} </h1>
 
-<h1> Password is ${user.roles} </h1>
+<h1> Role is ${user.roles} </h1>
 
 <h4><a href="<c:url value="/logout"/>">Exit</a></h4>
 
